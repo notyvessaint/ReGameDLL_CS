@@ -1403,7 +1403,7 @@ void EXT_FUNC CBasePlayerWeapon::__API_HOOK(SendWeaponAnim)(int iAnim, int skipl
 
 	MESSAGE_BEGIN(MSG_ONE, SVC_WEAPONANIM, nullptr, m_pPlayer->pev);
 		WRITE_BYTE(iAnim);		// sequence number
-		WRITE_BYTE(pev->body);	// weaponmodel bodygroup.
+		WRITE_BYTE(5);	// weaponmodel bodygroup.
 	MESSAGE_END();
 }
 

@@ -8,7 +8,7 @@ short g_sModelIndexWExplosion;	// holds the index for the underwater explosion
 short g_sModelIndexBubbles;		// holds the index for the bubbles model
 short g_sModelIndexBloodDrop;	// holds the sprite index for the initial blood
 short g_sModelIndexBloodSpray;	// holds the sprite index for splattered blood
-short g_sModelIndexSmokePuff;
+short g_sModelIndexSmokePuff; 
 short g_sModelIndexFireball2;
 short g_sModelIndexFireball3;
 short g_sModelIndexFireball4;

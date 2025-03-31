@@ -1396,10 +1396,10 @@ void EXT_FUNC CBasePlayerWeapon::__API_HOOK(SendWeaponAnim)(int iAnim, int skipl
 {
 	m_pPlayer->pev->weaponanim = iAnim;
 
-#ifdef CLIENT_WEAPONS
-	if (skiplocal && ENGINE_CANSKIP(m_pPlayer->edict()))
-		return;
-#endif
+// #ifdef CLIENT_WEAPONS
+// 	if (skiplocal && ENGINE_CANSKIP(m_pPlayer->edict()))
+// 		return;
+// #endif
 
 	MESSAGE_BEGIN(MSG_ONE, SVC_WEAPONANIM, nullptr, m_pPlayer->pev);
 		WRITE_BYTE(iAnim);		// sequence number

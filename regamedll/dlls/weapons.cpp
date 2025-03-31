@@ -1394,7 +1394,7 @@ LINK_HOOK_CLASS_VOID_CHAIN(CBasePlayerWeapon, SendWeaponAnim, (int iAnim, int sk
 
 void EXT_FUNC CBasePlayerWeapon::__API_HOOK(SendWeaponAnim)(int iAnim, int skiplocal)
 {
-	m_pPlayer->pev->weaponanim = iAnim;
+	//m_pPlayer->pev->weaponanim = iAnim;
 
 // #ifdef CLIENT_WEAPONS
 // 	if (skiplocal && ENGINE_CANSKIP(m_pPlayer->edict()))
@@ -1405,6 +1405,8 @@ void EXT_FUNC CBasePlayerWeapon::__API_HOOK(SendWeaponAnim)(int iAnim, int skipl
 		WRITE_BYTE(iAnim);		// sequence number
 		WRITE_BYTE(5);	// weaponmodel bodygroup.
 	MESSAGE_END();
+
+	m_pPlayer->pev->weaponanim = iAnim;
 }
 
 BOOL CBasePlayerWeapon::AddPrimaryAmmo(int iCount, char *szName, int iMaxClip, int iMaxCarry)

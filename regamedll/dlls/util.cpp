@@ -29,7 +29,7 @@ int g_groupop = 0;
 float UTIL_WeaponTimeBase()
 {
 #ifdef CLIENT_WEAPONS
-	return 0.0;
+	return gpGlobals->time;
 #else
 	return gpGlobals->time;
 #endif

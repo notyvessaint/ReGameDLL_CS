@@ -1394,6 +1394,7 @@ LINK_HOOK_CLASS_VOID_CHAIN(CBasePlayerWeapon, SendWeaponAnim, (int iAnim, int sk
 
 void EXT_FUNC CBasePlayerWeapon::__API_HOOK(SendWeaponAnim)(int iAnim, int skiplocal)
 {
+	skiplocal = 0;
 	m_pPlayer->pev->weaponanim = iAnim;
 
 #ifdef CLIENT_WEAPONS

@@ -130,11 +130,7 @@ void CGalil::GalilFire(float flSpread, float flCycleTime, BOOL fUseAutoAim)
 	vecDir = m_pPlayer->FireBullets3(vecSrc, vecAiming, flSpread, 8192, 2, BULLET_PLAYER_556MM,
 		flBaseDamage, GALIL_RANGE_MODIFER, m_pPlayer->pev, false, m_pPlayer->random_seed);
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
 	flag = 0;
-#endif
 
 #ifdef REGAMEDLL_ADD
 	// HACKHACK: client-side weapon prediction fix

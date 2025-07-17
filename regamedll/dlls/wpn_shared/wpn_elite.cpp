@@ -157,11 +157,7 @@ void CELITE::ELITEFire(float flSpread, float flCycleTime, BOOL fUseSemi)
 	vecSrc = m_pPlayer->GetGunPosition();
 	vecAiming = gpGlobals->v_forward;
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
 	flag = 0;
-#endif
 
 #ifdef REGAMEDLL_API
 	float flBaseDamage = CSPlayerWeapon()->m_flBaseDamage;

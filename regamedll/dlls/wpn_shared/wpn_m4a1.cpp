@@ -187,11 +187,7 @@ void CM4A1::M4A1Fire(float flSpread, float flCycleTime, BOOL fUseAutoAim)
 		m_pPlayer->pev->effects |= EF_MUZZLEFLASH;
 	}
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
 	flag = 0;
-#endif
 
 #ifndef REGAMEDLL_FIXES
 	m_pPlayer->ammo_556nato--;

@@ -227,11 +227,7 @@ void CGLOCK18::GLOCK18Fire(float flSpread, float flCycleTime, BOOL bFireBurst)
 #endif
 	vecDir = m_pPlayer->FireBullets3(vecSrc, vecAiming, flSpread, 8192, 1, BULLET_PLAYER_9MM, flBaseDamage, GLOCK18_RANGE_MODIFER, m_pPlayer->pev, true, m_pPlayer->random_seed);
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
 	flag = 0;
-#endif
 
 	PLAYBACK_EVENT_FULL(flag, m_pPlayer->edict(), m_usFireGlock18, 0, (float *)&g_vecZero, (float *)&g_vecZero, vecDir.x, vecDir.y,
 		int(m_pPlayer->pev->punchangle.x * 100), int(m_pPlayer->pev->punchangle.y * 100), m_iClip == 0, FALSE);

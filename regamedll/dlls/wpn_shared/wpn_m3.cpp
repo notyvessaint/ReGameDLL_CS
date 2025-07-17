@@ -134,11 +134,7 @@ void CM3::PrimaryAttack()
 	m_pPlayer->FireBullets(9, vecSrc, vecAiming, vecCone, 3000, BULLET_PLAYER_BUCKSHOT, 0, 0, NULL);
 #endif
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
 	flag = 0;
-#endif
 
 #ifdef REGAMEDLL_ADD
 	// HACKHACK: client-side weapon prediction fix

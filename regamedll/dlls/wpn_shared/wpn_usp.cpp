@@ -224,11 +224,7 @@ void CUSP::USPFire(float flSpread, float flCycleTime, BOOL fUseSemi)
 #endif
 	vecDir = m_pPlayer->FireBullets3(vecSrc, vecAiming, flSpread, 4096, 1, BULLET_PLAYER_45ACP, flBaseDamage, USP_RANGE_MODIFER, m_pPlayer->pev, true, m_pPlayer->random_seed);
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
-	flag = 0;
-#endif // CLIENT_WEAPONS
+	flag = 0; // CLIENT_WEAPONS
 
 	PLAYBACK_EVENT_FULL(flag, m_pPlayer->edict(), m_usFireUSP, 0, (float *)&g_vecZero, (float *)&g_vecZero, vecDir.x, vecDir.y,
 		(int)(m_pPlayer->pev->punchangle.x * 100), 0, m_iClip == 0, (m_iWeaponState & WPNSTATE_USP_SILENCED));

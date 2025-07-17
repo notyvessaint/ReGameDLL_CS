@@ -1223,11 +1223,7 @@ public:
 	virtual void SecondaryAttack();
 	virtual BOOL UseDecrement()
 	{
-	#ifdef CLIENT_WEAPONS
-		return TRUE;
-	#else
 		return FALSE;
-	#endif
 	}
 	virtual void WeaponIdle();
 

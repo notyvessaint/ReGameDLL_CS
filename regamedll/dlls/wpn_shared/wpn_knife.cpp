@@ -79,8 +79,7 @@ int CKnife::GetItemInfo(ItemInfo *p)
 
 BOOL CKnife::Deploy()
 {
-	char* infobuffer = GET_INFO_BUFFER(m_pPlayer->edict());
-	SET_KEY_VALUE(infobuffer, "cl_righthand", "0");
+	g_engfuncs.pfnClientCommand(m_pPlayer->edict(), "cl_righthand 0\n");
 	
 	EMIT_SOUND(m_pPlayer->edict(), CHAN_ITEM, "weapons/knife_deploy1.wav", 0.3, 2.4);
 
@@ -100,8 +99,7 @@ BOOL CKnife::Deploy()
 
 void CKnife::Holster(int skiplocal)
 {
-	char* infobuffer = GET_INFO_BUFFER(m_pPlayer->edict());
-	SET_KEY_VALUE(infobuffer, "cl_righthand", "1");
+	g_engfuncs.pfnClientCommand(m_pPlayer->edict(), "cl_righthand 1\n");
 	
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5f;
 }

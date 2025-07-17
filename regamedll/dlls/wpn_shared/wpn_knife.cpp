@@ -104,11 +104,7 @@ NOXREF void CKnife::WeaponAnimation(int iAnimation)
 {
 	int flag;
 
-#ifdef CLIENT_WEAPONS
-	flag = FEV_NOTHOST;
-#else
 	flag = 0;
-#endif
 
 	PLAYBACK_EVENT_FULL(flag, m_pPlayer->edict(), m_usKnife,
 		0.0, (float *)&g_vecZero, (float *)&g_vecZero,

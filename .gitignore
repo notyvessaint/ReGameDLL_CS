@@ -22,3 +22,4 @@ regamedll/version/appversion.h
 regamedll/msvc/PublishPath*.txt
 publish
 /.vs/ReGameDLL_CS/v17
+/.vs

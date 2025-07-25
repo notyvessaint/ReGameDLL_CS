@@ -143,6 +143,16 @@ CGrenade *EXT_FUNC SpawnGrenade_api(WeaponIdType weaponId, entvars_t *pevOwner, 
 	return nullptr;
 }
 
+bool EXT_FUNC IsInsideSmokeCloud_api(Vector &vecSrc)
+{
+	return TheBots->IsInsideSmokeCloud(&vecSrc);
+}
+
+bool EXT_FUNC IsLineBlockedBySmoke_api(Vector &vecFrom, Vector &vecTo)
+{
+	return TheBots->IsLineBlockedBySmoke(&vecFrom, &vecTo);
+}
+
 ReGameFuncs_t g_ReGameApiFuncs = {
 	CREATE_NAMED_ENTITY,
 

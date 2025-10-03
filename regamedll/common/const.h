@@ -33,7 +33,7 @@
 #endif
 
 // Max # of clients allowed in a server.
-#define MAX_CLIENTS                 32
+#define MAX_CLIENTS                 64
 
 // How many bits to use to encode an edict.
 #define MAX_EDICT_BITS              11 // # of bits needed to represent max edicts

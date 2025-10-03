@@ -128,19 +128,6 @@ jobs:
       - name: Show version
         run: echo "Version is ${{ steps.get_version.outputs.version }}"
 
-      - name: Import PFX and sign
-        if: github.event_name != 'pull_request'
-        env:
-          KEY_PFX_PASS: ${{ secrets.KEY_PFX_PASS }}
-        # https://github.com/actions/runner-images/blob/main/images/windows/Windows2025-Readme.md
-        run: |
-               $pfxBase64 = "${{ secrets.KEY_PFX_B64 }}"
-               [IO.File]::WriteAllBytes("${{ github.workspace }}\signing-cert.pfx", [Convert]::FromBase64String($pfxBase64))
-               certutil -f -p "${{ secrets.KEY_PFX_PASS }}" -importPFX "${{ github.workspace }}\signing-cert.pfx"
-               & 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\signtool.exe' sign /a /f "${{ github.workspace }}\signing-cert.pfx"  /p $env:KEY_PFX_PASS /d "Regamedll_CS is a result of reverse engineering of original library mod HLDS (build 6153beta) using DWARF debug info embedded into linux version of HLDS, cs.so" /du "https://rehlds.dev/" /tr "http://timestamp.digicert.com" /td sha256 /fd sha256 /v ${{ github.workspace }}\publish\bin\win32\cstrike\dlls\mp.dll
-               Remove-Item -Recurse -Force "${{ github.workspace }}\signing-cert.pfx"
-        shell: "pwsh"
-
       - name: Edit resources at windows binaries
         run: |
           rcedit ${{ github.workspace }}\publish\bin\win32\cstrike\dlls\mp.dll --set-version-string ProductName "Regamedll_CS - mp.dll" --set-file-version "${{ steps.get_version.outputs.version }}" --set-product-version "${{ steps.get_version.outputs.version }}" --set-version-string FileDescription "Regamedll_CS (mp.dll) - provide more stable (than official) version of Counter-Strike game with extended API for mods and plugins, Commit: $env:GITHUB_SHA" --set-version-string "Comments" "Regamedll_CS is a result of reverse engineering of original library mod HLDS (build 6153beta) using DWARF debug info embedded into linux version of HLDS, cs.so. Commit: $env:GITHUB_SHA" --set-version-string CompanyName "ReHLDS Dev Team" --set-version-string LegalCopyright "Copyright 2025 Valve, ReHLDS DevTeam" --set-icon regamedll/msvc/icon.ico
@@ -213,50 +200,6 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-
-      - name: GPG Import
-        run: |
-          echo "${{ secrets.PUB_ASC }}" > "${{ secrets.PUB_ASC_FILE }}"
-          echo "${{ secrets.KEY_ASC }}" > "${{ secrets.KEY_ASC_FILE }}"
-
-          # Import the public key
-          gpg --batch --yes --import "${{ secrets.PUB_ASC_FILE }}"
-          if [[ $? -ne 0 ]]; then
-            echo "Error: Failed to import the public key"
-            exit 1
-          fi
-
-          # Import the private key
-          gpg --batch --yes --import "${{ secrets.KEY_ASC_FILE }}"
-          if [[ $? -ne 0 ]]; then
-            echo "Error: Failed to import the private key"
-            exit 2
-          fi
-
-          # Extract the fingerprint of the imported public key
-          GPG_LINUX_FINGERPRINT=$(gpg --list-keys --with-colons | grep '^fpr' | head -n 1 | cut -d: -f10)
-
-          # Check if the fingerprint was extracted
-          if [[ -z "$GPG_LINUX_FINGERPRINT" ]]; then
-            echo "Error: Failed to extract the fingerprint of the key"
-            exit 3
-          fi
-
-          # Set the trust level for the key
-          echo "$GPG_LINUX_FINGERPRINT:6:" | gpg --batch --import-ownertrust
-          if [ $? -ne 0 ]; then
-            echo "Error: Failed to set trust for the key $GPG_LINUX_FINGERPRINT"
-            exit 4
-          fi
-
-          echo "Key $GPG_LINUX_FINGERPRINT successfully imported and trusted"
-          gpg --list-keys
-
-          #export for global use
-          echo "GPG_LINUX_FINGERPRINT=$GPG_LINUX_FINGERPRINT" >> $GITHUB_ENV
-        shell: bash
-        if: github.event_name != 'pull_request'
-
       - name: Build and Run unittests
         run: |
           rm -rf build && CC=gcc CXX=g++ cmake -DCMAKE_BUILD_TYPE=Unittests -B build && cmake --build build -j8
